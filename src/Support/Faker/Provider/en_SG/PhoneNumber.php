@@ -15,5 +15,4 @@ class PhoneNumber extends BasePhoneNumber
 
         return static::numerify($this->generator->parse($format));
     }
-
 }

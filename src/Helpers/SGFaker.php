@@ -3,10 +3,10 @@
 namespace LaraUtil\Foundation\Helpers;
 
 use Faker\Generator;
-use LaraUtil\Foundation\Support\Faker\Provider\en_SG\Address;
 use Faker\Provider\en_SG\Person;
-use LaraUtil\Foundation\Support\Faker\Provider\en_SG\PhoneNumber;
+use LaraUtil\Foundation\Support\Faker\Provider\en_SG\Address;
 use LaraUtil\Foundation\Support\Faker\Provider\en_SG\Area;
+use LaraUtil\Foundation\Support\Faker\Provider\en_SG\PhoneNumber;
 
 class SGFaker
 {
