@@ -37,6 +37,5 @@ class SGFaker
         $faker->addProvider(new Area($faker));
 
         return $faker->$name(...$arguments);
-
     }
 }
