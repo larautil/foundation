@@ -36,6 +36,7 @@ trait ColorfulEnum
 
     /**
      * @return string[]
+     *
      * @psalm-return array<string|int, string>
      */
     public static function toColorArray(): array
