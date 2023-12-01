@@ -6,21 +6,20 @@ use Illuminate\Database\Eloquent\ModelNotFoundException;
 
 /**
  * Trait HasCompositeKey
- * @package Thiagoprz\CompositeKey
  */
 trait HasCompositeKey
 {
-
     /**
      * Set the keys for a save update query.
      *
-     * @param \Illuminate\Database\Eloquent\Builder $query
+     * @param  \Illuminate\Database\Eloquent\Builder  $query
      * @return \Illuminate\Database\Eloquent\Builder
      */
     protected function setKeysForSaveQuery($query)
     {
         $keys = $this->getKeyName();
-        return !is_array($keys) ? parent::setKeysForSaveQuery($query) : $query->where(function ($q) use ($keys) {
+
+        return ! is_array($keys) ? parent::setKeysForSaveQuery($query) : $query->where(function ($q) use ($keys) {
             foreach ($keys as $key) {
                 $q->where($key, '=', $this->getAttribute($key));
             }
@@ -37,6 +36,7 @@ trait HasCompositeKey
         if ($this->getIncrementing()) {
             return array_merge([$this->getKeyName() => $this->getKeyType()], $this->casts);
         }
+
         return $this->casts;
     }
 
@@ -60,13 +60,13 @@ trait HasCompositeKey
         array_map(function ($key) use (&$keys) {
             $keys[] = $this->getAttribute($key);
         }, $fields);
+
         return $keys;
     }
 
     /**
      * Finds model by primary keys
      *
-     * @param array $ids
      * @return mixed
      */
     public static function find(array $ids)
@@ -74,6 +74,7 @@ trait HasCompositeKey
         $modelClass = get_called_class();
         $model = new $modelClass();
         $keys = $model->primaryKey;
+
         return $model->where(function ($query) use ($ids, $keys) {
             foreach ($keys as $idx => $key) {
                 if (isset($ids[$idx])) {
@@ -88,7 +89,6 @@ trait HasCompositeKey
     /**
      * Find model by primary key or throws ModelNotFoundException
      *
-     * @param array $ids
      * @return mixed
      */
     public static function findOrFail(array $ids)
@@ -96,9 +96,10 @@ trait HasCompositeKey
         $modelClass = get_called_class();
         $model = new $modelClass();
         $record = $model->find($ids);
-        if (!$record) {
+        if (! $record) {
             throw new ModelNotFoundException;
         }
+
         return $record;
     }
 }
