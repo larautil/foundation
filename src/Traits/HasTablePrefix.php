@@ -25,5 +25,4 @@ trait HasTablePrefix
     {
         return config('nfield-admin.table_prefix') ?? $this->prefix ?? '';
     }
-
 }
