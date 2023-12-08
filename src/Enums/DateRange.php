@@ -22,6 +22,6 @@ namespace LaraUtil\Foundation\Enums;
  */
 enum DateRange: string
 {
-case INCLUSIVE = 'inclusive';
-case EXCLUSIVE = 'exclusive';
+    case INCLUSIVE = 'inclusive';
+    case EXCLUSIVE = 'exclusive';
 }

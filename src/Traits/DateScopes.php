@@ -128,8 +128,8 @@ trait DateScopes
 
         $dateRange = $customRange ?? DateRange::from(config('date-scopes.default_range'));
 
-        $startFunc = 'startOf' . ucfirst($dateUnit);
-        $endFunc = 'endOf' . ucfirst($dateUnit);
+        $startFunc = 'startOf'.ucfirst($dateUnit);
+        $endFunc = 'endOf'.ucfirst($dateUnit);
 
         $applyNoOverflow = (!in_array($dateUnit, $this->fixedLengthDateUnits)) ? 'NoOverflow' : '';
         $subFunc = 'sub' . ucfirst($dateUnit) . 's' . $applyNoOverflow;
