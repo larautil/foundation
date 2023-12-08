@@ -1,9 +1,9 @@
 <?php
 
-use Illuminate\Support\Facades\Log;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Log;
 
-if (!function_exists('present')) {
+if (! function_exists('present')) {
     function present(bool $asString = false): Carbon|string
     {
         $now = Carbon::now(config('foundation.timezone', 'Asia/Singapore'));
@@ -12,7 +12,7 @@ if (!function_exists('present')) {
     }
 }
 
-if (!function_exists('local_time')) {
+if (! function_exists('local_time')) {
     function local_time(Carbon|string $datetimeString, bool $asString = false, ?string $timezone = null, ?string $format = null): Carbon|string
     {
         $timezone = $timezone ?? config('foundation.timezone', 'Asia/Singapore');
@@ -34,11 +34,9 @@ if (!function_exists('local_time')) {
     }
 }
 
-if (!function_exists('log_debug')) {
+if (! function_exists('log_debug')) {
     /**
      * Debug (level 100): Detailed debug information.
-     * @param string $message
-     * @param array $data
      */
     function log_debug(string $message, array $data = []): void
     {
@@ -46,11 +44,11 @@ if (!function_exists('log_debug')) {
     }
 }
 
-if (!function_exists('log_info')) {
+if (! function_exists('log_info')) {
     /**
      * Info (level 200): Interesting events. General operational entries about what's happening inside the application.
-     * @param string $message
-     * @param array|null $data
+     *
+     * @param  array|null  $data
      */
     function log_info(string $message, array $data = []): void
     {
@@ -58,11 +56,11 @@ if (!function_exists('log_info')) {
     }
 }
 
-if (!function_exists('log_notice')) {
+if (! function_exists('log_notice')) {
     /**
      * Notice (level 250): Normal but significant events.
-     * @param string $message
-     * @param array|null $data
+     *
+     * @param  array|null  $data
      */
     function log_notice(string $message, array $data = []): void
     {
@@ -70,11 +68,11 @@ if (!function_exists('log_notice')) {
     }
 }
 
-if (!function_exists('log_warning')) {
+if (! function_exists('log_warning')) {
     /**
      * Warning (level 300): Exceptional occurrences that are not errors.
-     * @param string $message
-     * @param array|null $data
+     *
+     * @param  array|null  $data
      */
     function log_warning(string $message, array $data = []): void
     {
@@ -82,11 +80,11 @@ if (!function_exists('log_warning')) {
     }
 }
 
-if (!function_exists('log_error')) {
+if (! function_exists('log_error')) {
     /**
      * Error (level 400): Runtime errors that do not require immediate action but should be monitored.
-     * @param string $message
-     * @param array|null $data
+     *
+     * @param  array|null  $data
      */
     function log_error(string $message, array $data = []): void
     {
@@ -94,11 +92,9 @@ if (!function_exists('log_error')) {
     }
 }
 
-if (!function_exists('log_critical')) {
+if (! function_exists('log_critical')) {
     /**
      * Critical (level 500): Critical conditions.
-     * @param string $message
-     * @param array $data
      */
     function log_critical(string $message, array $data = []): void
     {
@@ -106,11 +102,9 @@ if (!function_exists('log_critical')) {
     }
 }
 
-if (!function_exists('log_alert')) {
+if (! function_exists('log_alert')) {
     /**
      * Alert (level 550): Action must be taken immediately.
-     * @param string $message
-     * @param array $data
      */
     function log_alert(string $message, array $data = []): void
     {
@@ -118,11 +112,9 @@ if (!function_exists('log_alert')) {
     }
 }
 
-if (!function_exists('log_emergency')) {
+if (! function_exists('log_emergency')) {
     /**
      * Emergency (level 600): System is unusable.
-     * @param string $message
-     * @param array $data
      */
     function log_emergency(string $message, array $data = []): void
     {
@@ -130,12 +122,8 @@ if (!function_exists('log_emergency')) {
     }
 }
 
-if (!function_exists('write_to_log')) {
-    /**
-     * @param string $message
-     * @param array $data
-     * @param string $level
-     */
+if (! function_exists('write_to_log')) {
+
     function write_to_log(string $message, array $data = [], string $level = 'debug'): void
     {
         Log::$level($message, $data);
