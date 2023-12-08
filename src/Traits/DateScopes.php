@@ -6,6 +6,7 @@ use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Builder;
 use LaraUtil\Foundation\Exceptions\DateException;
 use LaraUtil\Foundation\Enums\DateRange;
+use LaraUtil\Foundation\Enums\DateRangeColumn;
 
 /**
  * @method static Builder ofLastUnit(string $dateUnit, int $value, DateRange $customRange = null)
@@ -103,6 +104,8 @@ trait DateScopes
         'week'
     ];
 
+    protected DateRangeColumn $dateRangeColumn = DateRangeColumn::CREATED_AT;
+
     /**
      * @param Builder $query Eloquent Builder
      * @param string $dateUnit A valid date unit, such as hour, day, month, year etc...
@@ -149,9 +152,16 @@ trait DateScopes
 //        if (defined('DATE_SCOPE_DEBUG'))
 //            dd(collect($range)->transform(fn ($item) => $item->format('Y-m-d H:i:s'))->toArray());
 
-        $createdColumnName = (self::CREATED_AT != 'created_at') ? self::CREATED_AT : config('date-scopes.created_column');
+        $createdColumnName = (self::CREATED_AT != 'created_at') ? self::CREATED_AT : config('foundation.created_column');
+        $updatedColumnName = (self::UPDATED_AT != 'updated_at') ? self::UPDATED_AT : config('foundation.updated_column');
 
-        return $query->whereBetween($createdColumnName, $range);
+
+        $scopeColumnName = match (true) {
+            $this->dateRangeColumn === DateRangeColumn::CREATED_AT => $createdColumnName,
+            $this->dateRangeColumn === DateRangeColumn::UPDATED_AT => $updatedColumnName,
+        };
+
+        return $query->whereBetween($scopeColumnName, $range);
     }
 
     // START SECONDS
