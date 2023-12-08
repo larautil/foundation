@@ -2,6 +2,7 @@
 
 namespace LaraUtil\Foundation\Traits;
 
+use Illuminate\Support\Arr;
 use Spatie\Enum\Exceptions\UnknownEnumProperty;
 
 trait ColorfulEnum
@@ -12,7 +13,7 @@ trait ColorfulEnum
     {
         parent::__construct($value);
 
-        $this->color = static::colors()[$value];
+        $this->color = Arr::get(static::colors(), $value);
     }
 
     public function __get(string $name)
