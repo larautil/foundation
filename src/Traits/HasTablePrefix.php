@@ -6,6 +6,8 @@ use Illuminate\Support\Str;
 
 trait HasTablePrefix
 {
+    protected string $prefix = '';
+
     /**
      * Get the table associated with the model.
      *
@@ -23,6 +25,6 @@ trait HasTablePrefix
      */
     public function getPrefix()
     {
-        return config('nfield-admin.table_prefix') ?? $this->prefix ?? '';
+        return $this->prefix;
     }
 }

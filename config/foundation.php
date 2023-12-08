@@ -1,6 +1,18 @@
 <?php
 
-// config for LaraUtil/Foundation
 return [
+
+    /**
+     * |------------------------------------------------------------------------
+     * | Local Settings
+     * |------------------------------------------------------------------------
+     */
+    'country' => 'Singapore',
+
+    'timezone' => 'Asia/Singapore',
+
+    'date_format' => 'd-m-Y',
+
+    'datetime_format' => 'd-m-Y H:i:s',
 
 ];
