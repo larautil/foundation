@@ -103,9 +103,7 @@ trait DateScopes
         'day',
         'week'
     ];
-
-    protected DateRangeColumn $dateRangeColumn = DateRangeColumn::CREATED_AT;
-
+    
     /**
      * @param Builder $query Eloquent Builder
      * @param string $dateUnit A valid date unit, such as hour, day, month, year etc...
