@@ -4,9 +4,8 @@ namespace LaraUtil\Foundation\Traits;
 
 use Carbon\CarbonImmutable;
 use Illuminate\Database\Eloquent\Builder;
-use LaraUtil\Foundation\Exceptions\DateException;
 use LaraUtil\Foundation\Enums\DateRange;
-use LaraUtil\Foundation\Enums\DateRangeColumn;
+use LaraUtil\Foundation\Exceptions\DateException;
 
 /**
  * @method static Builder ofLastUnit(string $dateUnit, int $value, DateRange $customRange = null)
@@ -103,7 +102,7 @@ trait DateScopes
         'day',
         'week'
     ];
-    
+
     /**
      * @param Builder $query Eloquent Builder
      * @param string $dateUnit A valid date unit, such as hour, day, month, year etc...
@@ -124,10 +123,10 @@ trait DateScopes
             DateException::invalidValue();
         }
 
-        $dateRange = $customRange ?? DateRange::from(config('date-scopes.default_range'));
+        $dateRange = $customRange ?? DateRange::from($this->defaultDateRange());
 
-        $startFunc = 'startOf'.ucfirst($dateUnit);
-        $endFunc = 'endOf'.ucfirst($dateUnit);
+        $startFunc = 'startOf' . ucfirst($dateUnit);
+        $endFunc = 'endOf' . ucfirst($dateUnit);
 
         $applyNoOverflow = (!in_array($dateUnit, $this->fixedLengthDateUnits)) ? 'NoOverflow' : '';
         $subFunc = 'sub' . ucfirst($dateUnit) . 's' . $applyNoOverflow;
@@ -150,16 +149,11 @@ trait DateScopes
 //        if (defined('DATE_SCOPE_DEBUG'))
 //            dd(collect($range)->transform(fn ($item) => $item->format('Y-m-d H:i:s'))->toArray());
 
-        $createdColumnName = (self::CREATED_AT != 'created_at') ? self::CREATED_AT : config('foundation.created_column');
-        $updatedColumnName = (self::UPDATED_AT != 'updated_at') ? self::UPDATED_AT : config('foundation.updated_column');
+        $createdColumnName = self::CREATED_AT;
+        $updatedColumnName = self::UPDATED_AT;
 
-
-        $scopeColumnName = match (true) {
-            $this->dateRangeColumn === DateRangeColumn::CREATED_AT => $createdColumnName,
-            $this->dateRangeColumn === DateRangeColumn::UPDATED_AT => $updatedColumnName,
-        };
-
-        return $query->whereBetween($scopeColumnName, $range);
+        return $query->whereBetween($createdColumnName, $range)
+            ->orWhereBetween($updatedColumnName, $range);
     }
 
     // START SECONDS
@@ -478,5 +472,10 @@ trait DateScopes
     public function scopeMillenniumToDate(Builder $query): Builder
     {
         return $query->ofLastMillenniums(1, customRange: DateRange::INCLUSIVE);
+    }
+
+    protected function defaultDateRange(): string
+    {
+        return DateRange::INCLUSIVE->value;
     }
 }

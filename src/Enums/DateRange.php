@@ -20,6 +20,7 @@ namespace LaraUtil\Foundation\Enums;
  *
  * The same concept applies to other time intervals like weeks, months, quarters, and years etc.
  */
+
 enum DateRange: string
 {
     case INCLUSIVE = 'inclusive';
