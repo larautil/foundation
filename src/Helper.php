@@ -13,8 +13,12 @@ if (! function_exists('present')) {
 }
 
 if (! function_exists('local_time')) {
-    function local_time(Carbon|string $datetimeString, bool $asString = false, ?string $timezone = null, ?string $format = null): Carbon|string
+    function local_time(Carbon|string|null $datetimeString = null, bool $asString = false, ?string $timezone = null, ?string $format = null): Carbon|string|null
     {
+        if ($datetimeString === null) {
+            return null;
+        }
+
         $timezone = $timezone ?? config('foundation.timezone', 'Asia/Singapore');
 
         $format = $format ?? config('foundation.datetime_format', 'd-m-Y H:i:s');
